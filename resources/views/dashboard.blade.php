@@ -14,7 +14,7 @@
   <div class="py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="overflow-x-auto">
-        <table class="table-auto" id="users-table">
+        <table class="table-auto bg-white" id="users-table">
           <thead>
             <tr>
               <th>ID</th>
