@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shoe;
 use App\Http\Requests\StoreShoeRequest;
 use App\Http\Requests\UpdateShoeRequest;
+use App\Models\Category;
 
 class ShoeController extends Controller
 {
@@ -13,7 +14,10 @@ class ShoeController extends Controller
      */
     public function index()
     {
-        return view('shoes.index');
+        $shoe = Shoe::all();
+        return view('shoes.index', [
+            'shoe' => $shoe
+        ]);
     }
 
     /**
@@ -21,7 +25,10 @@ class ShoeController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('shoes.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -29,7 +36,13 @@ class ShoeController extends Controller
      */
     public function store(StoreShoeRequest $request)
     {
-        //
+        $data = $request->validated();
+        $image = "{$data['name']}.{$data['image']->extension()}";
+        $request->file('image')->move(public_path('/img/shoes'), $image);
+        $data['image'] = "/img/shoes/$image";
+
+        Shoe::create($data);
+        return redirect(route('shoes'));
     }
 
     /**
@@ -45,7 +58,11 @@ class ShoeController extends Controller
      */
     public function edit(Shoe $shoe)
     {
-        //
+        $categories = Category::all();
+        return view('shoes.edit', [
+            'data' => $shoe,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -53,7 +70,17 @@ class ShoeController extends Controller
      */
     public function update(UpdateShoeRequest $request, Shoe $shoe)
     {
-        //
+
+        $data = $request->validated();
+
+        if ($request->image) {
+            unlink(public_path($shoe['image']));
+            $image = "{$data['name']}.{$data['image']->extension()}";
+            $request->file('image')->move(public_path('/img/shoes'), $image);
+            $data['image'] = "/img/shoes/$image";
+        }
+        $shoe->update($data);
+        return redirect(route('shoes'));
     }
 
     /**
@@ -61,6 +88,14 @@ class ShoeController extends Controller
      */
     public function destroy(Shoe $shoe)
     {
-        //
+        if ($shoe['image']) {
+            unlink(public_path($shoe['image']));
+        }
+
+        // Shoe::where('id', $shoe['id'])->delete();
+
+        $shoe->delete();
+
+        return redirect(route('shoes'))->with('status', 'Data berhasi dihapus');
     }
 }
