@@ -13,9 +13,8 @@
   </x-slot>
 
   <div class="p-12">
-    <div class="overflow-x-auto mx-auto max-w-7xl rounded-xl bg-white p-10 sm:px-6 lg:px-8">
-      <table class="table">
-        <!-- head -->
+    <div class="mx-auto max-w-7xl overflow-x-auto rounded-xl bg-white p-10 sm:px-6 lg:px-8">
+      <table class="table rounded-none" id="users-table">
         <thead>
           <tr>
             <th>No</th>
@@ -57,4 +56,18 @@
       </table>
     </div>
   </div>
+
+  <x-slot name="import">
+    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+  </x-slot>
+
+  @push('scripts')
+    <script>
+      $(document).ready(function() {
+        $('#users-table').DataTable();
+      });
+    </script>
+  @endpush
 </x-app-layout>
