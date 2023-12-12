@@ -63,4 +63,12 @@ class RentalController extends Controller
     {
         //
     }
+
+    public function myRent()
+    {
+        $data = Rental::all();
+        return view('myrents.index', [
+            'myrents' => $data
+          ]);
+    }
 }

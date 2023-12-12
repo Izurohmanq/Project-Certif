@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RentalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,11 @@ Route::middleware('auth')->group(function () {
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-  Route::view('/', 'home')->name('home');
+  Route::get('/myrents', [RentalController::class, 'myRent'])->name('myrents.myrents');
+
+  Route::get('/', [HomeController::class, 'index'])->name('home');
+  Route::get('/', [HomeController::class, 'searchShoes'])->name('home');
+  Route::post('/myrents', [HomeController::class, 'store'])->name('myrents.store');
 });
 
 require __DIR__ . '/auth.php';
