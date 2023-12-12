@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateShoeRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateShoeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,10 @@ class UpdateShoeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'image' => ['image', 'file', 'max:200'],
+            'price' => ['required', 'integer'],
+            'category_id' => ['required', Rule::in(Category::pluck('id')->all())]
         ];
     }
 }
