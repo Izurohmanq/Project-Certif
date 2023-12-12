@@ -26,10 +26,10 @@
 
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-primary bg-red-300 hover:bg-red-900 hover:text-white" >Delete</button>
+            <button type="submit" class="btn btn-primary" >Delete</button>
           </form>
           <a href="{{ route('shoes.edit', $shoe['id']) }}">
-            <button class="btn btn-primary bg-cyan-200 hover:bg-cyan-900 hover:text-white">EDIT</button>
+            <button class="btn btn-secondary">EDIT</button>
           </a>
         </div>
       </div>

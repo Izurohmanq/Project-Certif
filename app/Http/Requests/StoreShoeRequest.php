@@ -25,7 +25,7 @@ class StoreShoeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'image' => ['required', 'image', 'file', 'max:200'],
+            'image' => ['required', 'image', 'file', 'max:2000'],
             'price' => ['required', 'integer'],
             'category_id' => ['required', Rule::in(Category::pluck('id')->all())]
         ];
