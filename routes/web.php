@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +19,12 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::middleware(['is_admin', 'verified'])->group(function () {
-
   Route::get('/users', [UserController::class, 'index'])->name('users.index');
   Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
   Route::post('/user/store', [UserController::class, 'store'])->name('users.store');
   Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
   Route::patch('/user/update/{user}', [UserController::class, 'update'])->name('users.update');
   Route::delete('/user/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-  // Route::get('/shoes', [ShoeController::class, 'index'])->name('shoes.index');
 
   Route::get('/shoes', [ShoeController::class, 'index'])->name('shoes');
   Route::get('/shoes/create', [ShoeController::class, 'create'])->name('shoes.create');
@@ -41,6 +39,8 @@ Route::middleware(['is_admin', 'verified'])->group(function () {
   Route::delete('/categories/destroy/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
   Route::get('/categories/edit/{category}', [CategoryController::class, 'edit'])->name('categories.edit');
   Route::patch('/categories/update/{category}', [CategoryController::class, 'update'])->name('categories.update');
+
+  Route::get('/rents', [RentalController::class, 'index'])->name('rents.index');
 
 });
 
