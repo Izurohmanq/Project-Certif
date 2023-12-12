@@ -16,7 +16,7 @@ class DashboardController extends Controller
     return view('dashboard.index');
   }
 
-  public function getUser()
+  public function getUsers()
   {
     $users = User::all();
     return DataTables::of($users)->make(true);

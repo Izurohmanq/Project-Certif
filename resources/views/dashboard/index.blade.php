@@ -12,9 +12,19 @@
   </x-slot>
 
   <div class="py-12">
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl rounded-xl bg-white p-10 sm:px-6 lg:px-8">
+      <div class="mb-10 flex justify-between">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+          {{ __('Users') }}
+        </h2>
+        <a href="/create/shoes">
+          <x-primary-button class="ms-3">
+            {{ __('Add') }}
+          </x-primary-button>
+        </a>
+      </div>
       <div class="overflow-x-auto">
-        <table class="table-auto bg-white" id="users-table">
+        <table class="table-auto" id="users-table">
           <thead>
             <tr>
               <th>ID</th>

@@ -9,15 +9,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rental extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+  // protected $table = 'rentals';
 
-    public function shoe()
-    {
-        return $this->belongsTo(Shoe::class);
-    }
+  protected $fillable = [
+    'status',
+    'user_id',
+    'shoe_id',
+  ];
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function shoe()
+  {
+    return $this->belongsTo(Shoe::class);
+  }
 }

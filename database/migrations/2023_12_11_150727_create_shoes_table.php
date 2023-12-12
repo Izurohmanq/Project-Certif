@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('shoes', function (Blueprint $table) {
           $table->id();
+          $table->boolean('available')->default(true);
           $table->string('name');
           $table->string('image')->nullable();
           $table->enum('category', ['sport', 'kids', 'casual', 'formal']);
