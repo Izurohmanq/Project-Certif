@@ -13,7 +13,7 @@ class ShoeController extends Controller
      */
     public function index()
     {
-        //
+        return view('shoes.index');
     }
 
     /**

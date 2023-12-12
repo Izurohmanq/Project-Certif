@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShoeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['is_admin', 'verified'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/shoes', [ShoeController::class, 'index'])->name('shoes');
   Route::get('/dashboard/getUser', [DashboardController::class, 'getUser'])->name('dashboard.getUser');
 });
 
