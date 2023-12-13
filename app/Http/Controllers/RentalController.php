@@ -57,6 +57,7 @@ class RentalController extends Controller
     //
   }
 
+
   /**
    * Remove the specified resource from storage.
    */
@@ -64,4 +65,13 @@ class RentalController extends Controller
   {
     //
   }
+
+  public function myRent()
+  {
+    $data = Rental::all();
+    return view('myrents.index', [
+      'myrents' => $data
+    ]);
+  }
+
 }
