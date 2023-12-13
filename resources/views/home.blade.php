@@ -21,10 +21,8 @@
 
           <form action="{{ route('myrents.store') }}" method="post">
             @csrf
-            @method("post")
             <input type="hidden" name="shoe_id" id="shoe_id" value="{{ $shoe['id'] }}">
-            <input type="hidden" name="user_id" id="user_id" value="{{ Auth()->user()->id }}">
-            <button class="btn btn-secondary" type="submit"  onclick="return confirm('yakin untuk menyewa sepatu ini?')">RENT</button>
+            <button class="btn btn-secondary btn-sm" type="submit"  onclick="return confirm('yakin untuk menyewa sepatu ini?')">RENT</button>
           </form>
           </a>
         </div>

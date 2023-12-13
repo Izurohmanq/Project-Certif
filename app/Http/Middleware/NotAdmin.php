@@ -18,7 +18,7 @@ class NotAdmin
   {
     if (!Auth::guest()) {
       if (Auth::user()->is_admin) {
-        return redirect('/dashboard');
+        return redirect(route('users.index'));
       } else {
         return $next($request); //not_admin
       }

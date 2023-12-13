@@ -18,6 +18,7 @@
                 <th>Rent date</th>
                 <th>Rent deadline</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -34,8 +35,15 @@
                   </td>
                   <td>{{ $rental->shoe->name }}</td>
                   <td>{{ $rental->created_at }}</td>
-                  <td>{{ $rental->updated_at }}</td>
+                  <td>{{ $rental->created_at->addDays(5) }}</td>
                   <td class="font-bold">{{ $rental->status }}</td>
+                  <td>
+                    <form action="{{ route('rents.update', $rental->id) }}" method="POST">
+                      @csrf
+                      @method('patch')
+                      <button class="btn btn-primary btn-sm" type="submit" {{ $rental->status === 'pending' ? null : 'disabled' }}>Approve</button>
+                    </form>
+                  </td>
                 </tr>
               @endforeach
             </tbody>

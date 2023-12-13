@@ -11,17 +11,6 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-          <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-            {{ __('Home') }}
-          </x-nav-link>
-        </div>
-        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-          <x-nav-link :href="route('myrents.myrents')" :active="request()->routeIs('myrents.myrents')">
-            {{ __('MyRents') }}
-          </x-nav-link>
-        </div>
-
         @if (auth()->user()->is_admin)
           <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
             <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
@@ -44,6 +33,17 @@
           <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
             <x-nav-link :href="route('rents.index')" :active="request()->routeIs('rents.index')">
               {{ __('Rents') }}
+            </x-nav-link>
+          </div>
+        @else
+          <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+              {{ __('Home') }}
+            </x-nav-link>
+          </div>
+          <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+            <x-nav-link :href="route('myrents.myrents')" :active="request()->routeIs('myrents.myrents')">
+              {{ __('MyRents') }}
             </x-nav-link>
           </div>
         @endif

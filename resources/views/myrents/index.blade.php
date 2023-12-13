@@ -13,7 +13,6 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Tenant</th>
                 <th>Shoe</th>
                 <th>Rent date</th>
                 <th>Rent deadline</th>
@@ -23,15 +22,16 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($myrents as $index => $myrents)
-                <td>{{ $index+1 }}</td>
-                <td>{{ $myrents->user->name }}</td>
-                <td>{{ $myrents->shoe->name }}</td>
-                <td>{{ $myrents->created_at }}</td>
-                <td>{{ $myrents->created_at->addDays(5) }}</td>
-                <td>{{ $myrents->shoe->price }}</td>
-                <td>{{ $myrents->created_at->diffInDays(now()) > 5 ? $myrents->created_at->diffInDays(now()) * $myrents->shoe->price : 0 }}</td>
-                <td>{{ $myrents->status }}</td>
+              @foreach ($myrents as $myrent)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $myrent->shoe->name }}</td>
+                  <td>{{ $myrent->created_at }}</td>
+                  <td>{{ $myrent->created_at->addDays(5) }}</td>
+                  <td>{{ $myrent->shoe->price }}</td>
+                  <td>{{ $myrent->created_at->diffInDays(now()) > 5 ? $myrent->created_at->diffInDays(now()) * $myrent->shoe->price : 0 }}</td>
+                  <td>{{ $myrent->status }}</td>
+                </tr>
               @endforeach
             </tbody>
           </table>

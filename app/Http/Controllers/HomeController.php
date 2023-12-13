@@ -8,33 +8,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $data = Shoe::all();
-        return view ('home', [
-            'shoes' => $data
-        ]);
+  public function index()
+  {
+    if (request('search')) {
+      $data = Shoe::where('name', 'like', '%' . request('search') . '%')->latest()->get();
+    } else {
+      $data = Shoe::all();
     }
-
-    public function searchShoes() {
-        $data = Shoe::latest();
-        if(request('search')) {
-            $data->where('name', 'like', '%' . request('search') . '%');
-        }
-
-        return view('home', [
-            'shoes' => $data->get()
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        Rental::create(
-            [   
-                'user_id'=> $request->user_id,
-                'shoe_id'=> $request->shoe_id,
-            ]
-            );
-            return redirect(route('myrents.myrents'));
-    }
+    return view('home', [
+      'shoes' => $data
+    ]);
+  }
 }

@@ -43,6 +43,7 @@ Route::middleware(['is_admin', 'verified'])->group(function () {
   Route::patch('/categories/update/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
   Route::get('/rents', [RentalController::class, 'index'])->name('rents.index');
+  Route::patch('/rents/update/{rental}', [RentalController::class, 'update'])->name('rents.update');
 
 });
 
@@ -50,12 +51,12 @@ Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
+Route::middleware(['auth', 'not_admin'])->group(function () {  
   Route::get('/myrents', [RentalController::class, 'myRent'])->name('myrents.myrents');
-
+  Route::post('/myrents', [RentalController::class, 'store'])->name('myrents.store');
   Route::get('/', [HomeController::class, 'index'])->name('home');
-  Route::get('/', [HomeController::class, 'searchShoes'])->name('home');
-  Route::post('/myrents', [HomeController::class, 'store'])->name('myrents.store');
 });
 
 require __DIR__ . '/auth.php';

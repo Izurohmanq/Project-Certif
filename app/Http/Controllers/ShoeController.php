@@ -37,7 +37,7 @@ class ShoeController extends Controller
   public function store(StoreShoeRequest $request)
   {
     $data = $request->validated();
-    $image = "{$data['name']}.{$data['image']->extension()}";
+    $image = fake()->uuid() . '.' . $data['image']->extension();
     $request->file('image')->move(public_path('/img/shoes'), $image);
     $data['image'] = "/img/shoes/$image";
 
