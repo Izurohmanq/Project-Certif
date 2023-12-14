@@ -11,9 +11,9 @@ class HomeController extends Controller
   public function index()
   {
     if (request('search')) {
-      $data = Shoe::where('name', 'like', '%' . request('search') . '%')->latest()->get();
+      $data = Shoe::where('name', 'like', '%' . request('search') . '%')->where('available', true)->latest()->get();
     } else {
-      $data = Shoe::all();
+      $data = Shoe::where('available', true)->get();
     }
     return view('home', [
       'shoes' => $data

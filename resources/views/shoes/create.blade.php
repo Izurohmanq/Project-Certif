@@ -8,8 +8,8 @@
   </x-slot>
 
   <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-      <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+    <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
+      <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8">
         <div class="max-w-xl">
           <form class="mt-6 space-y-6" method="post" action="{{ route('shoes.store') }}" enctype="multipart/form-data">
             @csrf
@@ -17,8 +17,8 @@
 
             <div>
               <x-input-label for="image" :value="__('Image')" />
-              <img class="img-preview img-fluid mb-3 col-md-5">
-              <x-text-input class="mt-1  block w-full" id="image" name="image" type="file" :value="old('image')" accept="image/*" onchange="previewImage()" />
+              <img class="img-preview img-fluid col-md-5 mb-3">
+              <x-text-input class="mt-1 block w-full" id="image" name="image" type="file" :value="old('image')" accept="image/*" onchange="previewImage()" />
               <x-input-error class="mt-2" :messages="$errors->get('image')" />
             </div>
 
@@ -36,18 +36,10 @@
               <x-input-label for="cateogry" :value="__('Cateogry')" />
               @foreach ($categories as $category)
                 <div class="flex items-center ps-3">
-                  <input id="vue-checkbox" type="checkbox" value="{{ $category->id }}" class="w-4 h-4 text-darks-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" name="category[]">
-                  <label for="vue-checkbox" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 text-black-300">{{ $category->name }}</label>
+                  <input class="text-darks-600 h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700" id="vue-checkbox" name="category[]" type="checkbox" value="{{ $category->id }}">
+                  <label class="text-black-300 ms-2 w-full py-3 text-sm font-medium text-gray-900" for="vue-checkbox">{{ $category->name }}</label>
                 </div>
               @endforeach
-
-              <!-- <select id="category" name="category_id" class="mt-2 rounded-md">
-
-                <option value="0" >Pilih Category</option>
-                @foreach ($categories as $category)
-                <option value="{{ $category['id'] }}" >{{ $category['name'] }}</option>
-                @endforeach
-              </select> -->
               <x-input-error class="mt-2" :messages="$errors->get('categories')" />
             </div>
 
@@ -55,7 +47,7 @@
               <x-primary-button>{{ __('Save') }}</x-primary-button>
 
               @if (session('status') === 'profile-updated')
-              <p class="text-sm text-gray-600" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">{{ __('Saved.') }}</p>
+                <p class="text-sm text-gray-600" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">{{ __('Saved.') }}</p>
               @endif
             </div>
           </form>

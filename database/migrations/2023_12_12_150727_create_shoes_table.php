@@ -13,6 +13,7 @@ return new class extends Migration {
     Schema::create('shoes', function (Blueprint $table) {
       $table->id();
       $table->string('name');
+      $table->boolean('available')->default(true);
       $table->string('image')->nullable();
       $table->bigInteger('price');
       $table->timestamps();

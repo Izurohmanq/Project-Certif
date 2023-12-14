@@ -19,6 +19,7 @@
                 <th>Price</th>
                 <th>Penalty</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -30,7 +31,14 @@
                   <td>{{ $myrent->created_at->addDays(5) }}</td>
                   <td>{{ $myrent->shoe->price }}</td>
                   <td>{{ $myrent->created_at->diffInDays(now()) > 5 ? $myrent->created_at->diffInDays(now()) * $myrent->shoe->price : 0 }}</td>
-                  <td>{{ $myrent->status }}</td>
+                  <td class="font-bold">{{ $myrent->status }}</td>
+                  <td>
+                    <form action="{{ route('rents.return', $myrent->id) }}" method="POST">
+                      @csrf
+                      @method('patch')
+                      <button class="btn btn-primary btn-sm" type="submit" {{ $myrent->status === 'rented' ? null : 'disabled' }}>Return</button>
+                    </form>
+                  </td>
                 </tr>
               @endforeach
             </tbody>

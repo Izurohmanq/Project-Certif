@@ -15,6 +15,7 @@ class Shoe extends Model
     protected $fillable = [
       'name',
       'image',
+      'available',
       'category',
       'price',
       'category_id'

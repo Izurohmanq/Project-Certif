@@ -37,11 +37,17 @@
                   <td>{{ $rental->created_at }}</td>
                   <td>{{ $rental->created_at->addDays(5) }}</td>
                   <td class="font-bold">{{ $rental->status }}</td>
-                  <td>
+                  <td class="flex gap-2">
                     <form action="{{ route('rents.update', $rental->id) }}" method="POST">
                       @csrf
                       @method('patch')
-                      <button class="btn btn-primary btn-sm" type="submit" {{ $rental->status === 'pending' ? null : 'disabled' }}>Approve</button>
+                      <button class="btn btn-primary btn-sm" type="submit" {{ $rental->status === 'pending_rent' || $rental->status === 'pending_return' ? null : 'disabled' }}>Approve</button>
+                    </form>
+
+                    <form action="{{ route('rents.deny', $rental->id) }}" method="POST">
+                      @csrf
+                      @method('patch')
+                      <button class="btn btn-secondary btn-sm" type="submit" {{ $rental->status === 'pending_rent' || $rental->status === 'pending_return' ? null : 'disabled' }}>Deny</button>
                     </form>
                   </td>
                 </tr>

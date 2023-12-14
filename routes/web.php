@@ -44,6 +44,7 @@ Route::middleware(['is_admin', 'verified'])->group(function () {
 
   Route::get('/rents', [RentalController::class, 'index'])->name('rents.index');
   Route::patch('/rents/update/{rental}', [RentalController::class, 'update'])->name('rents.update');
+  Route::patch('/rents/deny/{rental}', [RentalController::class, 'deny'])->name('rents.deny');
 
 });
 
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'not_admin'])->group(function () {
   Route::get('/myrents', [RentalController::class, 'myRent'])->name('myrents.myrents');
   Route::post('/myrents', [RentalController::class, 'store'])->name('myrents.store');
   Route::get('/', [HomeController::class, 'index'])->name('home');
+  Route::patch('/rents/return/{rental}', [RentalController::class, 'return'])->name('rents.return');
 });
 
 require __DIR__ . '/auth.php';

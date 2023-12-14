@@ -40,16 +40,23 @@ class RentalController extends Controller
    */
   public function store(Request $request)
   {
-    $rental = Rental::where('user_id', auth()->user()->id)->get();
+    $rental = Rental::where('user_id', auth()->user()->id)->where('status', 'rented')->get();
     if (count($rental) === 2) {
       return redirect(route('home'));
     }
-    
-    $request->validate(['shoe_id' => ['required', Rule::in(Shoe::pluck('id')->all())]]);
+
+    $request->validate(['shoe_id' => ['required', Rule::in(Shoe::where('available', true)->pluck('id')->all())]]);
     Rental::create(
       [
         'user_id' => auth()->user()->id,
         'shoe_id' => $request->shoe_id,
+      ]
+    );
+
+    $shoe = Shoe::find($request->shoe_id);
+    $shoe->update(
+      [
+        'available' => false,
       ]
     );
     return redirect(route('myrents.myrents'));
@@ -76,14 +83,52 @@ class RentalController extends Controller
    */
   public function update(Request $request, Rental $rental)
   {
+    $shoe = Shoe::find($rental->shoe->id);
+    $shoe->update(
+      [
+        'available' => $rental->status === 'pending_rent' ? false : true,
+      ]
+    );
+
     $rental->update(
       [
-        'status' => 'rented',
+        'status' => $rental->status === 'pending_rent' ? 'rented' : 'returned',
       ]
     );
     return back();
   }
 
+  public function deny(Request $request, Rental $rental)
+  {
+    $shoe = Shoe::find($rental->shoe->id);
+    if ($rental->status === 'pending_rent') {
+      $rental->delete();
+      $shoe->update(
+        [
+          'available' => true,
+        ]
+      );
+    }
+
+    if ($rental->status === 'pending_return') {
+      $rental->update(
+        [
+          'status' => 'rented',
+        ]
+      );
+    }
+    return back();
+  }
+
+  public function return(Request $request, Rental $rental)
+  {
+    $rental->update(
+      [
+        'status' => 'pending_return',
+      ]
+    );
+    return back();
+  }
 
   /**
    * Remove the specified resource from storage.
