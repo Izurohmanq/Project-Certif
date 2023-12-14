@@ -41,7 +41,10 @@ class ShoeController extends Controller
     $request->file('image')->move(public_path('/img/shoes'), $image);
     $data['image'] = "/img/shoes/$image";
 
-    Shoe::create($data);
+    $shoe = Shoe::create($data);
+
+    $categories = $request->input('category');
+    $shoe->category()->attach($categories);
     return redirect(route('shoes'));
   }
 
@@ -59,10 +62,7 @@ class ShoeController extends Controller
   public function edit(Shoe $shoe)
   {
     $categories = Category::all();
-    return view('shoes.edit', [
-      'data' => $shoe,
-      'categories' => $categories
-    ]);
+    return view('shoes.edit', compact('shoe', 'categories'));
   }
 
   /**
@@ -81,6 +81,9 @@ class ShoeController extends Controller
       $data['image'] = "/img/shoes/$image";
     }
     $shoe->update($data);
+
+    $categories = $request->input('category');
+    $shoe->category()->sync($categories);
     return redirect(route('shoes'));
   }
 
@@ -95,8 +98,8 @@ class ShoeController extends Controller
 
     // Shoe::where('id', $shoe['id'])->delete();
 
+    $shoe->categories()->detach();
     $shoe->delete();
-
     return redirect(route('shoes'))->with('status', 'Data berhasi dihapus');
   }
 }
