@@ -82,3 +82,10 @@ Selamat datang di Swiftwalk, platform sewa sepatu yang dikembangkan oleh kelompo
     ```
 
     Aplikasi akan berjalan di `http://localhost:8000`.
+
+## Skema Database
+![Skema Database](https://cdn.discordapp.com/attachments/1183629085839204353/1185232243002724442/image.png?ex=658edc8b&is=657c678b&hm=520019208dca509c4c79648623ebbcf84b2440156132c118418ab4725c148350& "Skema Database")
+
+## Video Demo
+
+[Klik di sini untuk melihat video demo](https://drive.google.com/file/d/1TeaKvfrMMpTCt89gG69bie4-NV8xSJX8/view?usp=drive_link)
