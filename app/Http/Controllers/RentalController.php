@@ -40,7 +40,7 @@ class RentalController extends Controller
    */
   public function store(Request $request)
   {
-    $rental = Rental::where('user_id', auth()->user()->id)->where('status', 'rented')->get();
+    $rental = Rental::where('user_id', auth()->user()->id)->where('status', 'rented')->orWhere('status', 'pending_rent')->get();
     if (count($rental) === 2) {
       return redirect(route('home'));
     }

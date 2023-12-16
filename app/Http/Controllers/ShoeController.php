@@ -98,7 +98,7 @@ class ShoeController extends Controller
 
     // Shoe::where('id', $shoe['id'])->delete();
 
-    $shoe->categories()->detach();
+    $shoe->category()->detach();
     $shoe->delete();
     return redirect(route('shoes'))->with('status', 'Data berhasi dihapus');
   }
